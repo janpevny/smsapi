@@ -44,7 +44,10 @@ class SmsapiServiceProvider extends ServiceProvider
                     });
                 }, $defaults);
 
-                return new SmsapiClient($client, $defaults);
+                $proxyClassName = $config['proxy'];
+                $proxy = new $proxyClassName($config['endpoint']);
+
+                return new SmsapiClient($client, $defaults, $proxy);
             });
 
         if ($this->app->runningInConsole()) {
